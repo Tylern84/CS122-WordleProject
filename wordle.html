@@ -1,0 +1,58 @@
+<h1>Wordle!</h1>
+<h2>Goals</h2>
+<p>In this assignment you'll work on implementing the game 'Wordle'.  If you haven't played it, I suggest
+you try it out (a google search will help you find it!) so you know what to aim for.</p>
+<h2>Overview</h2>
+<p>Playing a game of wordle can be broken down into these steps:</p>
+<ol>
+<li>The computer obtains a list of possible words</li>
+<li>The computer selects one word as the "secret" which the player will try to guess</li>
+<li>The player guesses a word</li>
+<li>The computer generates a hint about which letters are correct/incorrect.</li>
+<li>The hint is communicated to the player.</li>
+<li>Guessing continues until the player is out of turns or wins the game.</li>
+</ol>
+<p>The game is implemented in three classes: <code>Wordle</code>, <code>Hint</code>, and
+<code>WordleGame</code>.  The <code>Wordle</code> class is responsible for items (1) and (2)
+above. Both the <code>Wordle</code> class and the <code>Hint</code> class are responsible
+for item (4). The <code>Wordle</code> class must be part of providing a hint to
+the player since the <code>Wordle</code> class knows what the secret word
+is. However, the logic for how to construct the hint itself, and the
+data associated with the details of the hint are encapsulated by the
+<code>Hint</code> class, so the <code>Wordle</code> class acts mainly as a middle-man. The
+<code>WordleGame</code> class contains the logic for interacting between the
+computer and the player. That is, it is a user of the <code>Wordle</code> and
+<code>Hint</code> classes. Specifically, the <code>WordleGame</code> starts steps (1) and
+(2) off by creating the <code>Wordle</code> object instance. The <code>WordleGame</code>
+allows a player to guess a word (step 3) by reading input from the
+keyboard, and then sends that to the computer (i.e., the <code>Wordle</code>
+object instance) to obtain a hint, which is then printed for the user
+(step 5).  This "game loop" continues until no more guesses remain, or
+the game is won (step 6).</p>
+<h2>Implementation</h2>
+<p>All coding takes place in the file <code>Wordle.java</code>. You should look through all the code and generally
+I've tried to order the parts so that easier items are implemented first.  Without a doubt, the most
+complex code live in the <code>Hint</code> constructor. Here, you'll be constructing a Hint to the puzzle. Of course
+constructing a Hint requires knowing what the secret word is as well as what the guess was.  Then you'll
+need to figure out what letters are correctly placed, what letters are in the secret word, but incorrectly
+placed, and what letters aren't in the secret word at all.  Read the comments for the constructor for more
+details.</p>
+<p>I suggest you implement this with a series of stages. First determining which characters are correctly placed
+then checking which are incorrectly placed, and finally determining which are not in the puzzle. Each stage
+will require some looping.</p>
+<p>Further there are a number of ways to create the Strings that will eventually become hint's instance
+variables. Here are some options:</p>
+<ul>
+<li>Build Strings by concatenating smaller Strings with the + operator.</li>
+<li>Build Strings from char arrays.</li>
+<li>Build Strings using the StringBuilder class.</li>
+</ul>
+<p><em>At the top of the Hint constructor</em>, you should provide a comment that provides reasoning/justification for
+the method you've used to build the Strings each Hint instance uses. You may use any of the approaches I've
+listed above, some combination of those, or alternate methods.</p>
+<h2>Grading</h2>
+<ul>
+<li>30 points for testing via Autolab</li>
+<li>15 points for general style/approach as evaluated by the TA</li>
+<li>10 points for the reasoning and justification for your method of constructing Hint instances as described in your comments</li>
+</ul>
