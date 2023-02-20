@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.desktop.SystemEventListener;
 import java.io.File;
 import java.io.IOException;
@@ -104,13 +105,12 @@ public class Wordle {
         Scanner scnr = new Scanner(new File(filenm));
         while (scnr.hasNextLine()) {
             String name = scnr.next();
-            Long frequency = scnr.nextLong();
+            long frequency = scnr.nextLong();
             if (name.length() == length && (frequency >= minfreq || frequency <= maxfreq)) {
                 knownWords.add(name.toLowerCase());
             }
         }
         scnr.close();
-        return;
     }
 
     /**
@@ -135,6 +135,7 @@ public class Wordle {
         Random r = new Random();
         int index = r.nextInt(knownWords.size());
         secretWord = knownWords.get(index);
+        System.out.println(secretWord);
     }
 
     /**
@@ -182,6 +183,9 @@ class Hint {
     private String incorrectlyPlaced;
     private String notInPuzzle;
     private String guess;
+    //added on
+    private String keyWord;
+
 
     /**
      * _Part 4: Implement this Constructor._
@@ -219,7 +223,26 @@ class Hint {
      * @param secretWord
      */
     public Hint(String guess, String secretWord) {
-        // TODO: implement this
+        this.keyWord= secretWord;
+        this.guess=guess;
+        this.correctlyPlaced= getCorrectlyPlaced();
+        this.incorrectlyPlaced=getIncorrectlyPlaced();
+        this.notInPuzzle= getNotInPuzzle();
+
+
+//        char[]charArray= guess.toCharArray();
+//        ArrayList<Character> newArray = new ArrayList<Character>();
+//        for(int i=0; i < charArray.length; i++){
+//            newArray.add(charArray[i]);
+//        }
+
+
+
+
+
+       //split secret word into characters in an array
+        //spit guess word into characters in an array
+        //compare those letter to see if they equal one another (if statements)
     }
 
     public boolean isWin() {
@@ -260,6 +283,15 @@ class Hint {
      * @return the correctly placed portion of the hint
      */
     public String getCorrectlyPlaced() {
+        correctlyPlaced="";
+        for(int i= 0; i < 5; i++){
+            if(guess.charAt(i) == keyWord.charAt(i)){
+                correctlyPlaced+=keyWord.charAt(i);
+            }
+            else{
+                correctlyPlaced+= '-';
+            }
+       }
         return correctlyPlaced;
     }
 
@@ -268,6 +300,15 @@ class Hint {
      * @return the incorrectly placed portion of the hint
      */
     public String getIncorrectlyPlaced() {
+        incorrectlyPlaced="";
+        for(int i=0; i<5;i++){
+            if(keyWord.indexOf(guess.charAt(i))>-1 && guess.charAt(i) != keyWord.charAt(i)){
+                incorrectlyPlaced+=guess.charAt(i);
+            }
+            else{
+                incorrectlyPlaced+='-';
+            }
+        }
         return incorrectlyPlaced;
     }
 
@@ -276,6 +317,14 @@ class Hint {
      * @return the not-in-puzzle portion of the hint
      */
     public String getNotInPuzzle() {
+        notInPuzzle="";
+        //using a for loop with indexof() method to check if character of guess matched with secret word
+        for(int i=0; i < 5; i++){
+            if(keyWord.indexOf(guess.charAt(i))==-1){
+                notInPuzzle+=guess.charAt(i);
+            }
+        }
+
         return notInPuzzle;
     }
 }
